@@ -4,6 +4,11 @@
 bool is_fibonacci(int *ptr, int len, int stride) {
     ASSERT(len >= 3, "`len` should be at least 3");
     // TODO: 编写代码判断从 ptr 开始，每 stride 个元素取 1 个元素，组成长度为 n 的数列是否满足
+    for (int i = 0; i < len - 2; i += 1) {
+        if (ptr[stride * (i + 2)] != ptr[stride * (i)] + ptr[stride * (i + 1)]) {
+            return false;
+        }
+    }
     // arr[i + 2] = arr[i] + arr[i + 1]
     return true;
 }
@@ -17,10 +22,10 @@ int main(int argc, char **argv) {
     ASSERT( is_fibonacci(arr0    , sizeof(arr0) / sizeof(*arr0)    , 1),         "arr0 is Fibonacci"    );
     ASSERT( is_fibonacci(arr0 + 2, sizeof(arr0) / sizeof(*arr0) - 4, 1), "part of arr0 is Fibonacci"    );
     ASSERT(!is_fibonacci(arr1    , sizeof(arr1) / sizeof(*arr1)    , 1),         "arr1 is not Fibonacci");
-    ASSERT( is_fibonacci(arr1 + 1,  3                              , 1), "part of arr1 is Fibonacci"    );
+    ASSERT( is_fibonacci(arr1 + 1, 3                               , 1), "part of arr1 is Fibonacci"    );
     ASSERT(!is_fibonacci(arr2    , sizeof(arr2) / sizeof(*arr2)    , 1),         "arr2 is not Fibonacci");
     ASSERT( is_fibonacci(arr2 + 2, 10                              , 2), "part of arr2 is Fibonacci"    );
-    ASSERT( is_fibonacci(arr2 + 3,  9                              , 2), "part of arr2 is Fibonacci"    );
+    ASSERT( is_fibonacci(arr2 + 3, 9                               , 2), "part of arr2 is Fibonacci"    );
     ASSERT(!is_fibonacci(arr2 + 3, 10                              , 2), "guard check"                  );
     ASSERT(!is_fibonacci(arr2 + 1, 10                              , 2), "guard check"                  );
     // clang-format on
